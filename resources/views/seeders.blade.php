@@ -21,4 +21,14 @@
             'contact' =>Str::random(10), <br>
         ]); <br>
     </p>
+
+    <h3>Call Multiple Seeder</h3>
+    <p>
+        To call multiple seeder file at a time we can use the <b>call method</b>.Create all the seeder file needed and create one separete file where we have to just call the all seeders file at a time.
+        <h4>Example</h4>
+        $this->call([   <br>
+            Photoseeder::class, <br>
+            StudentSeeder::class, <br>
+        ]);
+    </p>
 </div>
