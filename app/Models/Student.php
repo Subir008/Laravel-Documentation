@@ -18,7 +18,6 @@ class Student extends Model
         }
         function setNameAttribute ($var) {
             $this->attributes['name'] = ucfirst($var);
-             //return "aaa";
          }
     }
 
