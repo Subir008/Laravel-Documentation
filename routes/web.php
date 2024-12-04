@@ -178,6 +178,6 @@ Route::get('accessor/list', [NewController::class,'normal_list']);
 //-----------------------------
 // Mutuator
 Route::view('mutator', 'mutator');
-Route::get('mutator', [NewController::class,'mutator']);
+Route::get('mutator-add', [NewController::class,'mutator']);
 Route::get('accessor/list', [NewController::class,'normal_list']);
 //-----------------------------
