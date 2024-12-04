@@ -22,7 +22,7 @@
     <h3>{{__('welcome.language')}}</h3>
     <a href="lang/en">English</a>
     <a href="lang/hi">Hindi</a>
-    <a href="lang/be">Bengali</a>
+    <a href="lang/bn">Bengali</a>
 
 
     
