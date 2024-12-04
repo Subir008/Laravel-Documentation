@@ -4,6 +4,7 @@ use App\Http\Controllers\NewController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\CrudController;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\Agecheck;
@@ -159,4 +160,24 @@ Route::view('stub', 'stub');
 //-----------------------------
 // Seeder
 Route::view('seeders', 'seeders');
+//-----------------------------
+
+//-----------------------------
+// Maintenance
+Route::view('maintenance', 'maintenance');
+Route::view('error', 'error');
+//-----------------------------
+
+//-----------------------------
+// Accessor
+Route::view('accessors', 'accessors');
+Route::get('accessor/accessor-list', [NewController::class,'accessor_list']);
+Route::get('accessor/list', [NewController::class,'normal_list']);
+//-----------------------------
+
+//-----------------------------
+// Mutuator
+Route::view('mutator', 'mutator');
+Route::get('mutator', [NewController::class,'mutator']);
+Route::get('accessor/list', [NewController::class,'normal_list']);
 //-----------------------------

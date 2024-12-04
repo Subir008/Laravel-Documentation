@@ -23,6 +23,9 @@
 <a href="layout/home">Layout</a>
 <a href="stub">Stub</a>
 <a href="seeders">Seeders</a>
+<a href="maintenance">Maintenance</a>
+<a href="accessors">Accessor</a>
+<a href="mutator">Mutator</a>
 
 <br><br>
 <a href="crud">CRUD</a>

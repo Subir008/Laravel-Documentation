@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -146,6 +147,27 @@ class NewController extends Controller
         $request->session()->pull(key: 'user');
         $request->session()->flash(key: 'status', value: 'Logout Successful');
         return redirect('session');
+    }
+
+    //Accessor
+    function accessor_list(){
+        return Student::all();
+    }
+    function normal_list(){
+        return DB::table('students')->get();
+    }
+
+    // Mutator
+    function mutator(){
+        $student = new Student();
+        $student->name = 'noob';
+        $student->contact = 59979;
+
+        $student->save();
+
+        if($student->save()){
+            echo "Data Inserted Successfully";
+        }
     }
 
 }
