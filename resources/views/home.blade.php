@@ -26,6 +26,7 @@
 <a href="maintenance">Maintenance</a>
 <a href="accessors">Accessor</a>
 <a href="mutator">Mutator</a>
+<a href="relationship">Relationship</a>
 
 <br><br>
 <a href="crud">CRUD</a>

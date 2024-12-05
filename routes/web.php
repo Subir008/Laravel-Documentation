@@ -4,6 +4,7 @@ use App\Http\Controllers\NewController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\CrudController;
+use App\Http\Controllers\RelationshipController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -181,3 +182,12 @@ Route::view('mutator', 'mutator');
 Route::get('mutator-add', [NewController::class,'mutator']);
 Route::get('accessor/list', [NewController::class,'normal_list']);
 //-----------------------------
+
+//-----------------------------
+// Relationship
+Route::view('relationship', 'relationship');
+Route::get('onetoone',[RelationshipController::class , 'onetoone']);
+Route::get('onetooneinverse',[RelationshipController::class , 'onetooneinverse']);
+Route::get('onetomany',[RelationshipController::class , 'onetomany']);
+//-----------------------------
+
