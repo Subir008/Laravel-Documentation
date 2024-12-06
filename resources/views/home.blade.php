@@ -29,6 +29,7 @@
 <a href="relationship">Relationship</a>
 
 <br><br>
+<a href="mail">Mail</a>
 <a href="crud">CRUD</a>
 
 <br><br>
