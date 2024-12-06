@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\FileUploadController;
@@ -191,3 +192,8 @@ Route::get('onetooneinverse',[RelationshipController::class , 'onetooneinverse']
 Route::get('onetomany',[RelationshipController::class , 'onetomany']);
 //-----------------------------
 
+//-----------------------------
+// Mail Sending
+Route::view('mail','mail/mail');
+Route::post('mail',[MailController::class , 'send_mail']);
+//-----------------------------
