@@ -196,4 +196,6 @@ Route::get('onetomany',[RelationshipController::class , 'onetomany']);
 // Mail Sending
 Route::view('mail','mail/mail');
 Route::post('mail',[MailController::class , 'send_mail']);
+Route::post('mail_attachment',[MailController::class , 'send_mail_attachment'])->name('mail_attach');
+
 //-----------------------------
