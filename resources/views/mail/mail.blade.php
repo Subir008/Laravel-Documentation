@@ -133,14 +133,19 @@
 
         <form class="row g-3 p-4" action="{{ route('mail_attach')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <div class="card">
-                @if (session('send_success'))
-                
-                    {{session('send_success')}}
+            @if (session('send_success'))
+                <div class="card">
+                    <div class="alert alert-success m-2" role="alert">
+                        {{session('send_success')}}
+                    </div>
+                </div>
                 @elseif(session('send_fail'))
-
+                    <div class="card">
+                        <div class="alert alert-danger m-2" role="alert">
+                            {{session('send_fail')}}
+                        </div>
+                    </div>
                 @endif
-            </div>
             <div class="col-12">
                 <div class="col-md-6">
                     <label for="name" class="form-label">Name</label>
@@ -180,6 +185,25 @@
                 <button type="submit" class="btn btn-primary">Send</button>
             </div>
         </form>
+
+        <hr>
+
+        <h2 class="px-4">Steps For Sending Email With Attachment</h2>
+
+        <p>
+            <ol>
+                <li><b>First step</b>, same as above.</li>
+                <li><b>Second step</b>, same as above.</li>
+                <li><b>Third step</b>, all are same as above, additional upload the file in the folder and create a name for the file and pass the name to the mailable class .</li>
+                <li>
+                    <b>Fourth step</b>, add data for all the function like previous and add the data for <b>attachment()</b>.
+                    <br>
+                    In these function will have to pass the data of the attachment file , we can send multiple file in it, so it will return an array.
+                    <br>
+                    We have to take <b>Attachment class</b> in these we have to use the <b>fromPath</b> method and pass the full path of the file.It will automatically add the file to the mail, we don't have to add it separetly to the view for the mail.
+                </li>
+            </ol>
+        </p>
 
     </div>
 
