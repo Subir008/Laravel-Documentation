@@ -31,6 +31,7 @@
 <br><br>
 <a href="mail">Mail</a>
 <a href="crud">CRUD</a>
+<a href="api">API</a>
 
 <br><br>
 <!-- Fetching the current url -->
