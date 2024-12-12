@@ -24,3 +24,6 @@ Route::patch('update-data1', [ApiController::class , 'update_data1']);
 // Delete data
 Route::delete('delete-data', [ApiController::class , 'delete_data']);
 Route::delete('delete-data1', [ApiController::class , 'delete_data1']);
+
+// Searching data
+Route::post('search-data/{val}' , [ApiController::class , 'search_data']);

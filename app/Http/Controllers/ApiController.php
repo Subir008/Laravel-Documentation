@@ -77,7 +77,7 @@ class ApiController extends Controller
 
     // Delete data
     function delete_data(Request $request){
-        $student = Student::find($request->id)->delete();
+        $student = Student::findOrFail($request->id)->delete();
 
         if($student){
             return ['Result' => 'Success' , 'Message' => 'Record Deleted Successfully'];
@@ -93,6 +93,12 @@ class ApiController extends Controller
         }else{
             return ['Result' => 'Failed' , 'Message' => "Record Couldn't Be Deleted"];
         }
+    }
+
+    // Search data
+    function search_data($val){
+        $student = Student::find($val,'name');
+        return $student ;
     }
 
 
