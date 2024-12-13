@@ -26,4 +26,7 @@ Route::delete('delete-data', [ApiController::class , 'delete_data']);
 Route::delete('delete-data1', [ApiController::class , 'delete_data1']);
 
 // Searching data
-Route::post('search-data/{val}' , [ApiController::class , 'search_data']);
+Route::get('search-data/{val}' , [ApiController::class , 'search_data']);
+
+// Validate data
+Route::post('validate-data' , [ApiController::class , 'validate_data']);
