@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Validator;
 
 class ApiController extends Controller
 {
@@ -97,8 +98,43 @@ class ApiController extends Controller
 
     // Search data
     function search_data($val){
-        $student = Student::find($val,'name');
-        return $student ;
+        $student = Student::where('name','like',"%$val%")->get();
+        if($student->count() > 0){
+            return ["result" => "success" , 'data' => $student] ;
+        }else{
+            return ["result" => "failed" , 'data' => "Data not found"] ;
+        }
+    }
+
+    // Validation of data
+    function validate_data(Request $request){
+        $rule = [
+            'name' => 'required | min:2 | max:10',
+            'contact' => 'required | min:10',
+            'email' => 'required | email'
+            
+        ];
+        // $rule = array(
+        //     'name' => 'required | min:2 | max:10'
+        // );
+
+        $validation = Validator::make($request->all() , $rule);
+
+        if($validation->fails()){
+            return $validation->errors();
+        }else{
+            $student = new Student();
+            $student->name =  $request->name ;
+            $student->contact = $request->contact;
+            $student->class = $request->class;
+            $student->email = $request->email;
+     
+            if($student->save()){
+             return ['result' => 'Success' , 'message' => 'Data Added Successfully' ];
+            }else{
+             return ['result' => 'Failed' , 'message' => "Error, Data Can't Added" ];
+            }
+        }
     }
 
 

@@ -123,37 +123,65 @@
             <b>1st Way</b>
             <br>
             function delete_data(Request $request){ <br>
-            $student = Student::find($request->id)->delete();   <br>
-                <br>
-            if($student){   <br>
-            return ['Result' => 'Success' , 'Message' => 'Record Deleted Successfully'];    <br>
-            }else{  <br>
-            return ['Result' => 'Failed' , 'Message' => "Record Couldn't Be Deleted"];  <br>
-            }   <br>
-            }   <br>
+            $student = Student::find($request->id)->delete(); <br>
+            <br>
+            if($student){ <br>
+            return ['Result' => 'Success' , 'Message' => 'Record Deleted Successfully']; <br>
+            }else{ <br>
+            return ['Result' => 'Failed' , 'Message' => "Record Couldn't Be Deleted"]; <br>
+            } <br>
+            } <br>
             <b>2nd Way</b>
             <br>
-            function delete_data(Request $request){    <br>
-            $student = Student::destroy($request->id);  <br>
-                    <br>
-            if($student){   <br>
-            return ['Result' => 'Success' , 'Message' => 'Record Deleted Successfully'];    <br>
-            }else{  <br>
-            return ['Result' => 'Failed' , 'Message' => "Record Couldn't Be Deleted"];  <br>
-            }   <br>
-            }   <br>
+            function delete_data(Request $request){ <br>
+            $student = Student::destroy($request->id); <br>
+            <br>
+            if($student){ <br>
+            return ['Result' => 'Success' , 'Message' => 'Record Deleted Successfully']; <br>
+            }else{ <br>
+            return ['Result' => 'Failed' , 'Message' => "Record Couldn't Be Deleted"]; <br>
+            } <br>
+            } <br>
         </p>
         <h4>Router code-</h4>
         <p>
-        Route::delete('delete-data', [ApiController::class , 'delete_data']);
+            Route::delete('delete-data', [ApiController::class , 'delete_data']);
         </p>
         <p>
             <b>Note-</b>
-            In case of deleting a data if you use <b>delete()</b> if the data is present there it will delete the data, but if the data is not present there it will throw an error, it will not go to the else block of code.
+            In case of deleting a data if you use <b>delete()</b> if the data is present there it will delete the data,
+            but if the data is not present there it will throw an error, it will not go to the else block of code.
             <br>
-            delete() work on after finding the data then deleting it, so you can use <b>findOrFail()</b> it will delete data if it is present otherwise it will throw page not found.
+            delete() work on after finding the data then deleting it, so you can use <b>findOrFail()</b> it will delete
+            data if it is present otherwise it will throw page not found.
             <br>
             But it will work perfectly for the <b>destroy()</b>.
+        </p>
+    </div>
+
+    <div>
+        <h3>
+            <u>Search data using Api</u>
+        </h3>
+
+        <h4>Controller code </h4>
+        <p>
+            function search_data($val){     <br>
+            $student = Student::where('name','like',"%$val%")->get();   <br>
+            if($student->count() > 0){  <br>
+            return ["result" => "success" , 'data' => $student] ;   <br>
+            }else{  <br>
+            return ["result" => "failed" , 'data' => "Data not found"] ;    <br>
+            }   <br>
+            }   <br>
+        </p>
+
+        <h4>Router code-</h4>
+        <p>
+        Route::get('search-data/{val}' , [ApiController::class , 'search_data']);
+        </p>
+        <p>
+            
         </p>
     </div>
 
