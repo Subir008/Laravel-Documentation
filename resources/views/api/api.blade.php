@@ -159,6 +159,7 @@
         </p>
     </div>
 
+    <!-- Search -->
     <div>
         <h3>
             <u>Search data using Api</u>
@@ -166,19 +167,64 @@
 
         <h4>Controller code </h4>
         <p>
-            function search_data($val){     <br>
-            $student = Student::where('name','like',"%$val%")->get();   <br>
-            if($student->count() > 0){  <br>
-            return ["result" => "success" , 'data' => $student] ;   <br>
-            }else{  <br>
-            return ["result" => "failed" , 'data' => "Data not found"] ;    <br>
-            }   <br>
-            }   <br>
+            function search_data($val){ <br>
+            $student = Student::where('name','like',"%$val%")->get(); <br>
+            if($student->count() > 0){ <br>
+            return ["result" => "success" , 'data' => $student] ; <br>
+            }else{ <br>
+            return ["result" => "failed" , 'data' => "Data not found"] ; <br>
+            } <br>
+            } <br>
         </p>
 
         <h4>Router code-</h4>
         <p>
-        Route::get('search-data/{val}' , [ApiController::class , 'search_data']);
+            Route::get('search-data/{val}' , [ApiController::class , 'search_data']);
+        </p>
+        <p>
+
+        </p>
+    </div>
+
+    <div>
+        <h3>
+            <u>Validation of data Using Api</u>
+        </h3>
+
+        <h4>Controller code-</h4>
+        <p>
+            function validate_data(Request $request){   <br>
+            $rule = [   <br>
+            'name' => 'required | min:2 | max:10',  <br>
+            'contact' => 'required | min:10',   <br>
+            'email' => 'required | email'   <br>
+            ];  <br>
+            // $rule = array(   <br>
+            // 'name' => 'required | min:2 | max:10'    <br>
+            // );   <br>
+                <br>
+            $validation = Validator::make($request->all() , $rule); <br>
+                <br>
+            if($validation->fails()){   <br>
+            return $validation->errors();   <br>
+            }else{  <br>
+            $student = new Student();   <br>
+            $student->name = $request->name ;   <br>
+            $student->contact = $request->contact;  <br>
+            $student->class = $request->class;  <br>
+            $student->email = $request->email;  <br>
+                <br>
+            if($student->save()){   <br>
+            return ['result' => 'Success' , 'message' => 'Data Added Successfully' ];   <br>
+            }else{  <br>
+            return ['result' => 'Failed' , 'message' => "Error, Data Can't Added" ];    <br>
+            }   <br>
+            }   <br>
+            }   <br>
+        </p>
+        <h4>Router code-</h4>
+        <p>
+            Route::post('validate-data' , [ApiController::class , 'validate_data']);
         </p>
         <p>
             
