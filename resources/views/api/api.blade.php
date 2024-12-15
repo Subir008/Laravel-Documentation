@@ -227,7 +227,15 @@
             Route::post('validate-data' , [ApiController::class , 'validate_data']);
         </p>
         <p>
-            
+            For validating the data first create one array and store the rule for all the fields accordingly.
+            <br>
+            Then import the <b>Validator</b> class and call the <b>make()</b> function and pass the value in it like --
+            <ul>
+                <li>All the form input field, with the help of <b>Request</b> class <b>all()</b> </li>
+                <li>Array of the rule</li>
+                <li>Array of message, if created one</li>
+            </ul>
+            Then use the <b>fails()</b> function to check if the validation is fulfilled or not.
         </p>
     </div>
 

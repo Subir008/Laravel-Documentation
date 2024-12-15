@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -135,6 +136,19 @@ class ApiController extends Controller
              return ['result' => 'Failed' , 'message' => "Error, Data Can't Added" ];
             }
         }
+    }
+
+    // Sign up data functionality
+    function signup(Request $request){
+        
+        $input = $request->all();
+        $input['password'] = bcrypt($request->password);
+        $user = User::create($input);
+        $user['name'] = $request->name;
+
+        $success['token'] = $user->createToken('MyApp')->plainTextToken ;
+
+       return ['success' => true , 'result' => $success , 'msg' => "User Register Successfully" ]; 
     }
 
 
