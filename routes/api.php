@@ -9,10 +9,16 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('signup' , [ApiController::class , 'signup']);
+Route::post('login' , [ApiController::class , 'login']);
+
+// Route::group(['middleware' => 'auth:sanctum'], function(){
+Route::middleware('auth:sanctum')->group( function(){
+
+    // Fetch data
+    Route::get('get-data', [ApiController::class , 'get_data']);
+});
 
 // ---------------------------
-// Fetch data
-Route::get('get-data', [ApiController::class , 'get_data']);
 
 // Add Data
 Route::post('add-data' , [ApiController::class , 'add_data']);

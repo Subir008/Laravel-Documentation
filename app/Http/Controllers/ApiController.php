@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use Hash;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -146,9 +147,25 @@ class ApiController extends Controller
         $user = User::create($input);
         $user['name'] = $request->name;
 
-        $success['token'] = $user->createToken('MyApp')->plainTextToken ;
+        $success['token'] = $user->createToken('MyApps')->plainTextToken ;
 
        return ['success' => true , 'result' => $success , 'msg' => "User Register Successfully" ]; 
+    }
+
+    function login(Request $request){
+
+        $user = User::where('email', $request->email)->first();
+
+        if($user){
+            if(Hash::check($request->password , $user->password )){
+                $success['token'] = $user->createToken('MyApps')->plainTextToken;
+                return ['success' => true , 'token' => $success , 'msg' => "User Login Successfully" ]; 
+            }else{
+                return ['success' => false ,  'msg' => "Password Wrong" ]; 
+            }
+        }else{
+            return ['success' => false ,  'msg' => "User Not Found" ]; 
+        }
     }
 
 
