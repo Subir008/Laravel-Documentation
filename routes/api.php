@@ -10,10 +10,10 @@ Route::get('/user', function (Request $request) {
 
 Route::post('signup' , [ApiController::class , 'signup']);
 Route::post('login' , [ApiController::class , 'login']);
+Route::get('login' , [ApiController::class , 'login'])->name('login');
 
 // Route::group(['middleware' => 'auth:sanctum'], function(){
 Route::middleware('auth:sanctum')->group( function(){
-
     // Fetch data
     Route::get('get-data', [ApiController::class , 'get_data']);
 });
