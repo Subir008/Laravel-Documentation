@@ -168,6 +168,11 @@ Route::view('seeders', 'seeders');
 // Maintenance
 Route::view('maintenance', 'maintenance');
 Route::view('error', 'error');
+
+// No page found
+Route::fallback(function(){
+    return view('error');
+});
 //-----------------------------
 
 //-----------------------------
