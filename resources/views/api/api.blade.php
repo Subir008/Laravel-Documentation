@@ -10,9 +10,14 @@
         The routing path will be written in the <b>api.php</b> file of the routes folder.
     </p>
 
+    <b>Files to look --</b>
+    <li>Controller-> ApiController.php</li>
+    <li>Resources -> Views -> api -> api.blade.php</li>
+    <li>Routes -> api.php</li>
+
     <div>
 
-        <h3><u>Fetching all the data Using Api</u></h3>
+        <h2><u>Fetching all the data Using Api</u></h2>
         <h4>Controller code -</h4>
         function get_data(){ <br>
         $student = new Student(); <br>
@@ -186,6 +191,7 @@
         </p>
     </div>
 
+    <!-- Data Validate -->
     <div>
         <h3>
             <u>Validation of data Using Api</u>
@@ -193,34 +199,34 @@
 
         <h4>Controller code-</h4>
         <p>
-            function validate_data(Request $request){   <br>
-            $rule = [   <br>
-            'name' => 'required | min:2 | max:10',  <br>
-            'contact' => 'required | min:10',   <br>
-            'email' => 'required | email'   <br>
-            ];  <br>
-            // $rule = array(   <br>
-            // 'name' => 'required | min:2 | max:10'    <br>
-            // );   <br>
-                <br>
+            function validate_data(Request $request){ <br>
+            $rule = [ <br>
+            'name' => 'required | min:2 | max:10', <br>
+            'contact' => 'required | min:10', <br>
+            'email' => 'required | email' <br>
+            ]; <br>
+            // $rule = array( <br>
+            // 'name' => 'required | min:2 | max:10' <br>
+            // ); <br>
+            <br>
             $validation = Validator::make($request->all() , $rule); <br>
-                <br>
-            if($validation->fails()){   <br>
-            return $validation->errors();   <br>
-            }else{  <br>
-            $student = new Student();   <br>
-            $student->name = $request->name ;   <br>
-            $student->contact = $request->contact;  <br>
-            $student->class = $request->class;  <br>
-            $student->email = $request->email;  <br>
-                <br>
-            if($student->save()){   <br>
-            return ['result' => 'Success' , 'message' => 'Data Added Successfully' ];   <br>
-            }else{  <br>
-            return ['result' => 'Failed' , 'message' => "Error, Data Can't Added" ];    <br>
-            }   <br>
-            }   <br>
-            }   <br>
+            <br>
+            if($validation->fails()){ <br>
+            return $validation->errors(); <br>
+            }else{ <br>
+            $student = new Student(); <br>
+            $student->name = $request->name ; <br>
+            $student->contact = $request->contact; <br>
+            $student->class = $request->class; <br>
+            $student->email = $request->email; <br>
+            <br>
+            if($student->save()){ <br>
+            return ['result' => 'Success' , 'message' => 'Data Added Successfully' ]; <br>
+            }else{ <br>
+            return ['result' => 'Failed' , 'message' => "Error, Data Can't Added" ]; <br>
+            } <br>
+            } <br>
+            } <br>
         </p>
         <h4>Router code-</h4>
         <p>
@@ -230,14 +236,123 @@
             For validating the data first create one array and store the rule for all the fields accordingly.
             <br>
             Then import the <b>Validator</b> class and call the <b>make()</b> function and pass the value in it like --
-            <ul>
-                <li>All the form input field, with the help of <b>Request</b> class <b>all()</b> </li>
-                <li>Array of the rule</li>
-                <li>Array of message, if created one</li>
-            </ul>
-            Then use the <b>fails()</b> function to check if the validation is fulfilled or not.
+        <ul>
+            <li>All the form input field, with the help of <b>Request</b> class <b>all()</b> </li>
+            <li>Array of the rule</li>
+            <li>Array of message, if created one</li>
+        </ul>
+        Then use the <b>fails()</b> function to check if the validation is fulfilled or not.
         </p>
     </div>
 
+    <!-- Signup -->
+    <div>
+        <h2>
+            <u>Signup Using Api</u>
+        </h2>
+
+        <h4>Controller code-</h4>
+        <p>
+            function signup(Request $request){ <br>
+            <br>
+            $input = $request->all(); <br>
+            $input['password'] = <b>bcrypt($request->password)</b>; <br>
+            $user = User::create($input); <br>
+            $user['name'] = $request->name; <br>
+            <br>
+            $success['token'] = <b>$user->createToken('MyApps')->plainTextToken</b> ; <br>
+
+            return ['success' => true , 'result' => $success , 'msg' => "User Register Successfully" ]; <br>
+            } <br>
+        </p>
+
+        <h4>Router code -</h4>
+        <p>
+            Route::post('signup' , [ApiController::class , 'signup']);
+        </p>
+        <p>
+            <b>Steps</b><br>
+        <ul>
+            <li>First import <b>HasApiTokens</b> class in the model in which we are going to store the data and perform
+                the operation, without this we can't use <b>createToken()</b>function and create the token. </li>
+            <li>
+                Next, take the user data and from that all data will be stored normally except password , we have to
+                store the password in encrypted form, for that we have one function name <b>bcrypt()</b> in that we have
+                to pass the nornal user given password.
+            </li>
+            <li>
+                After that we have to store all the data in the db.
+            </li>
+            <li>
+                For creating the token inside createToken() we have to pass one name for the token and with the help of
+                plainTextToken, we can get the token value.
+                <br>
+                <b>User->createToken('MyApps')->plainTextToken ;</b>
+            </li>
+        </ul>
+        </p>
+    </div>
+
+    <!-- Login -->
+    <div>
+        <h2>
+            <u>Login & Validating Using Api</u>
+        </h2>
+
+        <h4>Controller code-</h4>
+        <p>
+            function login(Request $request){ <br>
+            $user = User::where('email', $request->email)->first(); <br>
+            if($user){ <br>
+            if(<b>Hash::check($request->password , $user->password )</b>){ <br>
+            $success['token'] = <b>$user->createToken('MyApps')->plainTextToken</b>; <br>
+            return ['success' => true , 'token' => $success , 'msg' => "User Login Successfully" ]; <br>
+            }else{ <br>
+            return ['success' => false , 'msg' => "Password Wrong" ]; <br>
+            } <br>
+            }else{ <br>
+            return ['success' => false , 'msg' => "User Not Found" ]; <br>
+            } <br>
+            } <br>
+        </p>
+        <h4>Router code-</h4>
+        <p>
+            Route::post('login' , [ApiController::class , 'login']);
+            <br><br>
+
+            <b>Validation</b><br>
+            // Route::group(['middleware' => 'auth:sanctum'], function(){   <br>
+                <b>OR</b>   <br>
+            Route::middleware('auth:sanctum')->group( function(){   <br>
+                <br>
+            Route::get('get-data', [ApiController::class , 'get_data']);    <br>
+            }); <br>
+        </p>
+        <p>
+            <b>Steps</b>
+        <ul>
+            <li>
+                First take the user data with the help of Request class.From the user data check the credentials here we
+                are taking email as login credential first check that email is present in db or not.
+            </li>
+            <li>
+                After checking the email if it is valid next check the password is correct or not.For checking the
+                password we have to import <b>Hash</b> class because within that we have <b>check()</b> without using
+                that we can't verified the password.As the password in the db is in hash form so with the check() we
+                have to pass 2 things - first user given password as it is next the password from the db.
+            </li>
+            <li>
+                After successfull signup user will get one token we have to use this token in future operation where it
+                is required. For testing phase suppose you are using the postman for checking these api you have to pass
+                in the headers.
+                <br>
+                Header name will be <b>Authorization</b> and its value will be <b>Bearer token_data</b>.
+            </li>
+            <li>
+                The token have to add to all the api's that are under <b>auth:sanctum</b> validation.
+            </li>
+        </ul>
+        </p>
+    </div>
 
 </div>
