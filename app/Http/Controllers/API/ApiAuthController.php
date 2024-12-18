@@ -8,7 +8,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Validator;
 
-class Authcontroller extends Controller
+class ApiAuthController extends Controller
 {
     //
     function signup(Request $request)
@@ -57,8 +57,8 @@ class Authcontroller extends Controller
             ],404);
         }
 
-        $user = Auth::user();
         if(Auth::attempt(['email' => $request->email , 'password' => $request->password])){
+            $user = Auth::user();
             return response()->json( [
                 'status' => true ,
                 'message' => 'Login successful',
