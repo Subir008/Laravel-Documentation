@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\ApiAuthController;
+use App\Http\Controllers\API\ApiCrudController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('signup' , [ApiController::class , 'signup']);
 Route::post('login' , [ApiController::class , 'login']);
 Route::post('login1' , [ApiController::class , 'login1']);
-Route::get('login' , [ApiController::class , 'login'])->name('login');
+// Route::get('login' , [ApiController::class , 'login'])->name('login');
 
 // Route::group(['middleware' => 'auth:sanctum'], function(){
 Route::middleware('auth:sanctum')->group( function(){
@@ -43,5 +45,14 @@ Route::post('validate-data' , [ApiController::class , 'validate_data']);
 
 // ------------------------------------------------
 
-Route::post('signupdata' , [AuthController::class , 'signup']);
-Route::post('logindata' , [AuthController::class , 'login']);
+// Crud Using Api resource
+Route::post('signupdata' , [ApiAuthController::class , 'signup']);
+Route::post('logindata' , [ApiAuthController::class , 'login']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    
+    Route::delete('logout', [ApiAuthController::class , 'logout']);
+
+    // 
+    Route::apiResource('crud', ApiCrudController::class);
+});
