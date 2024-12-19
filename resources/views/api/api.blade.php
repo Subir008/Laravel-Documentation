@@ -113,6 +113,8 @@
         <p>
             <b>Note-</b>
             Any of the router method can be called for updating the data either <b>put()</b> or <b>patch()</b>.
+            <br>
+            When using form-data for passing values for update it will not work using put method directly, we have to use post method  and in the form-data have to pass the key as <b>_method</b> and value as <b>put</b>, then it will work.
         </p>
     </div>
 

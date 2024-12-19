@@ -90,8 +90,53 @@ class ApiCrudController extends Controller
      */
     public function update(Request $request, string $id)
     {
+    //     return $request->all();
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'description' => 'required',
+                // 'image' => 'required|mimetype:jpg,png,jpeg'
+            ]
+        );
+        
+      $post = Post::where('id' ,$id)->get()->first();
+      $imagename = $post['image'] ;
       
-    }
+        if($post['image'] != "" || $post['image'] != null){
+            $oldimage = $post['image'];
+
+            if($request->image != ""){
+
+                $newimg = $request->image;
+
+                unlink('upload/' .$oldimage);
+
+                $imageext = $newimg->getClientOriginalExtension();
+                $imagename = time() . '.' . $imageext;
+                $path = public_path('upload/' );
+                
+                $newimg->move( $path , $imagename);
+                }else{
+                    $imagename = $oldimage;
+                }
+          }
+
+          $post = Post::where('id' , $id)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $imagename,
+        ]);
+
+        return response()->json( [
+            'status' => true ,
+            'message' => 'Post Updated Successful',
+            'post' => $post
+        ] ,200);
+
+
+      }
+    
 
     /**
      * Remove the specified resource from storage.
