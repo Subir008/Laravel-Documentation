@@ -30,6 +30,7 @@ Route::get('user',[NewController::class ,'getuser']);
 Route::get('new', [NewController::class , 'array']);
 // Route::get('about/{name}',[NewController::class ,'about']);
 Route::view('/about','about');
+Route::view('blade' , 'blade');
 
 Route::view('/user-form' , 'form-submittion');
 Route::post('userdata' , [NewController::class , 'getuserdata']);

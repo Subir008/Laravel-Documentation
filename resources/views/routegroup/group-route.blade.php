@@ -9,7 +9,7 @@
     <h3>Prefix route grouping</h3>
     <p>
         To minimise the routing path prfix group routing is used, <br>
-        For using prefix group route --><br>
+        For using prefix group route -><br>
         1. Use prefix function and give the common route path here ==> prefix('route-path')<br>
         2. Call the group function and inside that call annonymous function , using that call the rest view or other codes.<br>
     </p>

@@ -13,6 +13,7 @@
 
 <a href="{{route('nr')}}">Name route</a>
 <a href="routegroup/group-route">Group routing</a>
+<a href="blade">Blade Template</a>
 <a href="middleware">Middleware</a>
 <a href="query">Query Builder</a>
 <a href="modelquery">Elequent Model Query Builder</a>

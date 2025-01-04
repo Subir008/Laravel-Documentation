@@ -57,7 +57,8 @@ class NewController extends Controller
         return to_route('nr');
     }
     function nameRoutes(){
-        return to_route('nrs' , ['name' => 'sss'] );
+        // return to_route('nrs' , ['name' => 'sss'] );
+        return redirect()->route('nrs' , ['name' => 'sss'] );
     }
 
     //group routing
